@@ -1,22 +1,19 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
+    <v-toolbar align-center :flat="true" app class="teal"> 
+          <v-layout justify-space-around fill-height align-center row>
+            <v-flex justify-space-around align-center xs2> 
+              <v-toolbar-title justify-center offset-lg2 align-center>
+                <span class="font-weight-light white--text"> TELESSAUDE </span>
+              </v-toolbar-title>
+            </v-flex>
+          </v-layout>
     </v-toolbar>
 
     <v-content>
-      <HelloWorld/>
+      <v-container fluid>
+        <HelloWorld/>
+      </v-container>
     </v-content>
   </v-app>
 </template>
