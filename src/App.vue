@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app >
     <v-toolbar align-center :flat="true" app class="teal"> 
           <v-layout justify-space-around fill-height align-center row>
             <v-flex justify-space-around align-center xs2> 
@@ -11,7 +11,7 @@
     </v-toolbar>
 
     <v-content>
-      <v-container fluid>
+      <v-container class="pt-4 px-0" fluid>
         <HelloWorld/>
       </v-container>
     </v-content>
@@ -28,7 +28,6 @@ export default {
   },
   data () {
     return {
-      //
     }
   }
 }
