@@ -141,7 +141,7 @@
               </v-textarea>
             </v-flex>
             <v-flex xs2 class="mt-4 pt-4">
-              <v-btn class="teal right white--text elevation-1">
+              <v-btn round class="teal right white--text elevation-1">
                 Procurar
               </v-btn>
             </v-flex>
@@ -217,57 +217,54 @@
         </v-container>
       </div>
       </v-flex>
-      <v-flex class="pt-4" v-if="sidebarOpen==='TCT'" xs4>
-        <v-card class="elevation-0 fixed-tabs-bar">
+      <v-flex class="pt-4 elevation-2 white" v-if="sidebarOpen==='TCT'" xs2>
+        <v-card class="pl-1 fixed-tabs-bar">
           <v-card-title primary-title>
             <v-layout row> 
               <v-flex xs3>
-                <v-icon color="deep-purple darken-1">person</v-icon>
+                <v-icon color="deep-purple lighten-1">person</v-icon>
               </v-flex>
               <v-flex xs12>
-              <span>Solicitante</span>
+              <span class="deep-purple--text text--lighten-1">Solicitante</span>
               <div class="title">{{teleconsultorResponsavel}}</div>
               <span>{{cbo}}</span>
               </v-flex>
             </v-layout> 
           </v-card-title>
         </v-card>
-      <v-list class="fixed-tabs-bar">
-        <v-list-tile
-          v-for="processo in processos"
-          :key="processo.id"
-        >
-          <v-list-tile-content>
-            <v-card class="elevation-0 fixed-tabs-bar">
-              <v-card-title primary-title>
-                <v-layout row>
-                  <v-flex xs3>
-                    <v-icon color="yellow darken-2">assignment</v-icon>
-                  </v-flex>
-                  <v-flex xs12>
-                    <span>{{`${processo.status } • `}}</span>
-                  <div class="title">{{teleconsultorResponsavel}}</div>
-                  <span>{{cbo}}</span>
-                  </v-flex>
-                </v-layout> 
-              </v-card-title>
-            </v-card>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
+        <div class="fixed-list">
+          <v-card
+            v-for="processo in processos"
+            :key="processo.id"
+            class="elevation-0 pt-0 mx-auto">
+            <v-card-title class="pr-4 elevation-0">
+              <v-layout row>
+                <v-flex xs3>
+                  <v-icon v-if="processo.status==='Em Consultoria'" class="pr-2" color="yellow darken-2">assignment</v-icon>
+                  <v-icon v-if="processo.status==='Finalizado'" class="pr-2" color="teal lighten-2">check_circle</v-icon>
+                  <v-icon v-if="processo.status==='Cancelado'" class="pr-2" color="red">cancel</v-icon>
+                </v-flex>
+                <v-flex xs12 class="text-truncate">
+                  <span>{{`${processo.status } • ${hoje} `}}</span>
+                  <div>{{`TCT: ${processo.teleconsultorResponsavel}`}}</div>
+                  <div>{{`PCT: ${processo.paciente} `}}</div>
+                  <span >{{ `${processo.hipotese}`}}</span><br/>
+                  <span >{{ `${processo.descricao}`}}</span>
+                </v-flex>
+              </v-layout> 
+            </v-card-title>
+          </v-card>
+        </div>
       </v-flex>
-      <v-flex class="pt-4" xs0>
-      <v-list class="fixed-tabs-bar">
-        <v-list-tile
-          v-for="n in 3"
-          :key="n"
-        >
-          <v-list-tile-content>
-            <v-btn class="ma-1" @click="openBar(n)" fab small flat>
-              <v-icon color="grey">{{acoes[n]}}</v-icon>
+     <v-flex class="pt-4 ml-1 elevation-1 white" xs0>
+      <v-list class="fixed-tabs-bar my-2">
+        <v-layout column> 
+         <v-flex v-for="n in 3" :key="n" xs3>
+            <v-btn class="ma-0" @click="openBar(n)" fab flat>
+              <v-icon medium color="grey">{{acoes[n]}}</v-icon>
             </v-btn> 
-          </v-list-tile-content>
-        </v-list-tile>
+          </v-flex>
+        </v-layout> 
       </v-list>
       </v-flex>
     </v-layout>
@@ -290,7 +287,33 @@
       sidebarOpen:"TCT",
       acoes:['close','person','history','chat'],
       cbo:"Médico da Familia",
-      processos:[]
+      processos:[
+        {
+        id:1,
+        status:'Em Consultoria',
+        teleconsultorResponsavel:'Test',
+        paciente:'Test Test',
+        hipotese:'Amenorreia',
+        descricao:'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution',
+      },
+        {
+        id:2,
+        status:'Finalizado',
+        teleconsultorResponsavel:'Test',
+        paciente:'Test Test',
+        hipotese:'Hipertensão',
+        descricao:'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution',
+      },
+        {
+        id:3,
+        status:'Cancelado',
+        teleconsultorResponsavel:'Test',
+        paciente:'Test Test',
+        hipotese:'Ataque Cardiaco',
+        descricao:'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution',
+      },
+
+      ]
     }),
     components: {
       SelecionadorPaciente,
@@ -299,6 +322,10 @@
       processo:function(){
         let hoje = new Date()
         return `51997676863 - ${hoje.getDate()}/${hoje.getMonth()}/${hoje.getFullYear()} as ${hoje.getHours()}:${hoje.getMinutes()}:${hoje.getSeconds()}`
+      },
+      hoje:function(){
+        let hoje = new Date()
+        return `${hoje.getDate()}/${hoje.getMonth()}/${hoje.getFullYear()} as ${hoje.getHours()}:${hoje.getMinutes()}:${hoje.getSeconds()}`
       },
     },
     methods:{
@@ -318,6 +345,12 @@
    position: -webkit-sticky;
    position: sticky;
    top: 10.3rem;
+   z-index: 2;
+}
+.fixed-list{
+   position: -webkit-sticky;
+   position: sticky;
+    top: 247px;
    z-index: 2;
 }
 .separador{

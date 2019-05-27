@@ -27,7 +27,7 @@
           >
           <v-layout justify-space-around  align-space-around row>
               <v-layout column 
-                class="grey lighten-4 px-4"
+                class="grey lighten-4 px-2"
               >
                 <v-flex xs6>
                   <v-text-field
@@ -51,7 +51,7 @@
                   </v-text-field>
                 </v-flex> 
                 <v-flex v-if="campos[n]!=='Justificativa'" xs12>
-                  <v-btn class="teal right white--text elevation-1">
+                  <v-btn round class="teal right white--text elevation-1">
                     Buscar paciente
                   </v-btn>
                 </v-flex> 

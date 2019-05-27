@@ -1,11 +1,9 @@
 <template>
   <v-app >
     <v-toolbar align-center :flat="true" app class="teal"> 
-          <v-layout justify-space-around fill-height align-center row>
-            <v-flex justify-space-around align-center xs2> 
-              <v-toolbar-title justify-center offset-lg2 align-center>
-                <span class="font-weight-light white--text"> TELESSAUDE </span>
-              </v-toolbar-title>
+          <v-layout justify-space-between fill-height align-center row>
+            <v-flex offset-xs5 justify-space-around align-center xs2> 
+                <img src="https://i.ibb.co/1r9WDRk/logo-condensed-white.png">
             </v-flex>
           </v-layout>
     </v-toolbar>
