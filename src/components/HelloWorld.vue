@@ -27,7 +27,7 @@
               </v-flex>
             </v-layout>
           </v-flex>
-        <span class="separador"/>
+        <span class="vertical-spacer"/>
         <v-flex xs4>
             <v-layout class="pt-2" justify-space-around  column>
               <v-flex xs12>
@@ -41,7 +41,7 @@
               </v-flex>
             </v-layout>
           </v-flex>
-        <span class="separador"/>
+        <span class="vertical-spacer"/>
         <v-flex xs3>
             <v-layout class="pt-2" justify-space-around column>
               <v-flex xs12>
@@ -137,11 +137,12 @@
             <v-flex xs12>
               <v-textarea 
                 label="Descrição do Caso"
+                v-model="descricao"
               >
               </v-textarea>
             </v-flex>
             <v-flex xs2 class="mt-4 pt-4">
-              <v-btn round class="teal right white--text elevation-1">
+              <v-btn @click="sendData" round class="teal right white--text elevation-1">
                 Procurar
               </v-btn>
             </v-flex>
@@ -217,7 +218,7 @@
         </v-container>
       </div>
       </v-flex>
-      <v-flex class="pt-4 elevation-2 white" v-if="sidebarOpen==='TCT'" xs2>
+      <v-flex class="pt-4 elevation-2 white" v-show="sidebarOpen==='TCT'" transition="slide-y-reverse-transition" xs2>
         <v-card class="pl-1 fixed-tabs-bar">
           <v-card-title primary-title>
             <v-layout row> 
@@ -253,6 +254,7 @@
                 </v-flex>
               </v-layout> 
             </v-card-title>
+            <v-spacer class="horizontal-spacer"/>
           </v-card>
         </div>
       </v-flex>
@@ -268,11 +270,15 @@
       </v-list>
       </v-flex>
     </v-layout>
+
+
+
   </div>
 </template>
 
 <script>
   import SelecionadorPaciente from './SelecionadorPaciente'
+  import axios from 'axios'
 
   export default {
     data: () => ({
@@ -287,6 +293,7 @@
       sidebarOpen:"TCT",
       acoes:['close','person','history','chat'],
       cbo:"Médico da Familia",
+      descricao:'',
       processos:[
         {
         id:1,
@@ -329,6 +336,26 @@
       },
     },
     methods:{
+      sendData:function(){
+        let url=window.location.host.split(':')[0]+'8000';
+        let params = new URLSearchParams();
+        params.append('descricao', this.descricao);
+        axios.post(url, params).then(()=>{
+          setTimeout(
+            this.recieveData(), 8000
+          );
+        })
+      },
+      recieveData:function(){
+        this.processos=[]
+        let url=window.location.host.split(':')[0]+'8000';
+        let params = new URLSearchParams();
+        axios.get(url, params).then(response=>{
+          for(let processo in response.data['processos']){
+            this.processos.push(processo)
+          }
+        })
+      },
       openBar:function(){
         if(this.sidebarOpen === ''){
           this.sidebarOpen="TCT"
@@ -353,7 +380,18 @@
     top: 247px;
    z-index: 2;
 }
-.separador{
+.horizontal-spacer{
+  position:relative;
+  background: #E0E0E0;
+  height:7px;
+  border-style:solid;
+  border-color:white;
+  border-right-width:16px;
+  border-left-width:16px;
+  content: "";
+  top:-.5px
+}
+.vertical-spacer{
   background: #E0E0E0;
   position:relative;
   border-style:solid;
@@ -362,7 +400,7 @@
   border-right-width:19.7px;
   border-color:white;
   content: "";
-   width: 24px;
+  width: 24px;
   top:-.5px
 }
 .formulario-central{
