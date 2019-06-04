@@ -69,7 +69,7 @@
           <v-toolbar-title>
             <v-layout justify-start column>
               <v-flex xs12>
-                <span class="font-weight-light title black--text"><b> 040849 </b></span>
+                <span class="font-weight-light title black--text"><b> {{this.id}} </b></span>
               </v-flex>
               <v-flex xs12>
                 <span class="font-weight-light body-1 black--text"> {{ this.processo }} </span>
@@ -237,6 +237,7 @@
           <v-card
             v-for="processo in processos"
             :key="processo.id"
+            @click="renderNewTab(processo)"
             class="elevation-0 pt-0 mx-auto">
             <v-card-title class="pr-4 elevation-0">
               <v-layout row>
@@ -270,60 +271,17 @@
       </v-list>
       </v-flex>
     </v-layout>
-
-
-
   </div>
 </template>
 
 <script>
-  import SelecionadorPaciente from './SelecionadorPaciente'
+  import SelecionadorPaciente from './SelecionadorPaciente.vue'
   import axios from 'axios'
 
   export default {
-    data: () => ({
-      especialidades:['CARDIOLOGIA','CIRURGIA GERAL','GERIATRIA'],
-      hipoteses:['hipertensão arterial sistemica','cirurgia plastica de mama','tremor essencial'],
-      teleconsultores:['Adriana Mergel', 'Juliana Brenner', 'Juliana Pfeil'],
-      CIAP:['(A01) Dor generalizada/múltipla', '(N89) Enxaqueca', '(S19) Outra lesão cutânea'],
-      CID:['(A00) Cólera','(G00) Meningite bacteriana não classificada em outra parte','(Z00) Exame geral e investigação de pessoas sem queixas ou diagnóstico relatado'],
-      teleconsultorResponsavel:'CONEXUM',
-      unidade:'UNIDADE DE SAUDE CAMAQUA',
-      solicitante:'Romero Britto',
-      sidebarOpen:"TCT",
-      acoes:['close','person','history','chat'],
-      cbo:"Médico da Familia",
-      descricao:'',
-      processos:[
-        {
-        id:1,
-        status:'Em Consultoria',
-        teleconsultorResponsavel:'Test',
-        paciente:'Test Test',
-        hipotese:'Amenorreia',
-        descricao:'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution',
-      },
-        {
-        id:2,
-        status:'Finalizado',
-        teleconsultorResponsavel:'Test',
-        paciente:'Test Test',
-        hipotese:'Hipertensão',
-        descricao:'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution',
-      },
-        {
-        id:3,
-        status:'Cancelado',
-        teleconsultorResponsavel:'Test',
-        paciente:'Test Test',
-        hipotese:'Ataque Cardiaco',
-        descricao:'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution',
-      },
-
-      ]
-    }),
     components: {
       SelecionadorPaciente,
+			FormularioProps: () => import('./FormularioProps.vue'),
     },
     computed:{
       processo:function(){
@@ -336,6 +294,45 @@
       },
     },
     methods:{
+    renderNewTab:function(processo){
+      this.$router.push({name: 'FormularioProps', params:{
+          'id':processo.id,
+            'hipoteses':[processo.hipotese],
+            'teleconsultorResponsavel':processo.teleconsultorResponsavel,
+            'descricao':processo.descricao,
+        'solicitante':processo.solicitante,
+      'processos':[
+        {
+        id:1,
+        status:'Em Consultoria',
+        teleconsultorResponsavel:'Test 1',
+        solicitante:'Médico UBS 1',
+        paciente:'Test 1',
+        hipotese:'Amenorreia',
+        descricao:'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution',
+      },
+        {
+        id:2,
+        status:'Finalizado',
+        teleconsultorResponsavel:'Test 2',
+        paciente:'Test 2',
+        hipotese:'Hipertensão 2',
+        solicitante:'Médico UBS 2',
+        descricao:'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution',
+      },
+        {
+        id:3,
+        status:'Cancelado',
+        teleconsultorResponsavel:'Test 3',
+        solicitante:'Médico UBS 3',
+        paciente:'Test Test 3',
+        hipotese:'Ataque Cardiaco',
+        descricao:'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution',
+      },
+
+      ],
+        }})
+    },
       sendData:function(){
         let url=window.location.host.split(':')[0]+'8000';
         let params = new URLSearchParams();
