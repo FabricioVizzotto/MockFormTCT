@@ -1,12 +1,4 @@
 const propsData = {
-    props:[
-      'id',
-      'hipoteses',
-      'teleconsultorResponsavel',
-    'descricao',
-    'processos',
-    'solicitante'
-    ],
     data: () => ({
       especialidades:['CARDIOLOGIA','CIRURGIA GERAL','GERIATRIA'],
       teleconsultores:['Adriana Mergel', 'Juliana Brenner', 'Juliana Pfeil'],
@@ -16,6 +8,12 @@ const propsData = {
       sidebarOpen:"TCT",
       acoes:['close','person','history','chat'],
         cbo:"Médico da Familia",
+      'id':'',
+      'hipoteses':'',
+      'teleconsultorResponsavel':'',
+    'descricao':'',
+    'processos':'',
+    'solicitante':'',
     }),
 };
 

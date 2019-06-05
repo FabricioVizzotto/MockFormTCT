@@ -17,7 +17,7 @@ const defaultData = {
         {
         id:1,
         status:'Em Consultoria',
-        teleconsultorResponsavel:'Test',
+        teleconsultorResponsavel:'CONEXUM 1',
         solicitante:'Médico UBS',
         paciente:'Test Test',
         hipotese:'Amenorreia',
@@ -26,7 +26,7 @@ const defaultData = {
         {
         id:2,
         status:'Finalizado',
-        teleconsultorResponsavel:'Test',
+        teleconsultorResponsavel:'CONEXUM 2',
         paciente:'Test Test',
         hipotese:'Hipertensão',
         solicitante:'Médico UBS',
@@ -35,7 +35,7 @@ const defaultData = {
         {
         id:3,
         status:'Cancelado',
-        teleconsultorResponsavel:'Test',
+        teleconsultorResponsavel:'CONEXUM 3',
         solicitante:'Médico UBS',
         paciente:'Test Test',
         hipotese:'Ataque Cardiaco',

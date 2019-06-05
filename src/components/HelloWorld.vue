@@ -227,7 +227,7 @@
               </v-flex>
               <v-flex xs12>
               <span class="deep-purple--text text--lighten-1">Solicitante</span>
-              <div class="title">{{teleconsultorResponsavel}}</div>
+              <div class="title">{{solicitante}}</div>
               <span>{{cbo}}</span>
               </v-flex>
             </v-layout> 
@@ -295,43 +295,13 @@
     },
     methods:{
     renderNewTab:function(processo){
-      this.$router.push({name: 'FormularioProps', params:{
-          'id':processo.id,
-            'hipoteses':[processo.hipotese],
-            'teleconsultorResponsavel':processo.teleconsultorResponsavel,
-            'descricao':processo.descricao,
-        'solicitante':processo.solicitante,
-      'processos':[
-        {
-        id:1,
-        status:'Em Consultoria',
-        teleconsultorResponsavel:'Test 1',
-        solicitante:'Médico UBS 1',
-        paciente:'Test 1',
-        hipotese:'Amenorreia',
-        descricao:'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution',
-      },
-        {
-        id:2,
-        status:'Finalizado',
-        teleconsultorResponsavel:'Test 2',
-        paciente:'Test 2',
-        hipotese:'Hipertensão 2',
-        solicitante:'Médico UBS 2',
-        descricao:'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution',
-      },
-        {
-        id:3,
-        status:'Cancelado',
-        teleconsultorResponsavel:'Test 3',
-        solicitante:'Médico UBS 3',
-        paciente:'Test Test 3',
-        hipotese:'Ataque Cardiaco',
-        descricao:'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution',
-      },
-
-      ],
-        }})
+      localStorage.setItem('id',processo.id)
+      localStorage.setItem('hipoteses', [processo.hipotese])
+      localStorage.setItem('teleconsultorResponsavel', processo.teleconsultorResponsavel)
+      localStorage.setItem('descricao', processo.descricao)
+      localStorage.setItem('processos', [])
+      localStorage.setItem('solicitante', processo.solicitante)
+      this.$router.open({name: 'FormularioProps',params:{id:processo.id}})
     },
       sendData:function(){
         let url=window.location.host.split(':')[0]+'8000';

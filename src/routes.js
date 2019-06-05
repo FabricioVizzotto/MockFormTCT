@@ -6,7 +6,7 @@ import Router from 'vue-router'
 Router.prototype.open = function (routeObject) {
     let processo = routeObject.params
     const {href} = this.resolve(routeObject)
-    window.open(href, '_blank',{processo})}
+    window.open(href, '_blank')}
 
 import FormularioDefault from './components/FormularioDefault.vue';
 import FormularioProps from './components/FormularioProps.vue';
